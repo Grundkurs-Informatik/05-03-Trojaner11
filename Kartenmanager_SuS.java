@@ -198,6 +198,57 @@ stift.normal();
 // Ereignismethoden
 // ----------------------------------------------------------
 
+public void Sort_Klick() {
+loescheAnzeige();
+//Startzeit messen
+startZeit = System.currentTimeMillis();
+
+// z.B. 1000 Durchläufe
+for(int i=0; i<1000; i++){
+Sortieren();
+}
+
+//Endzeit messen
+endZeit = System.currentTimeMillis();
+
+double dauer = endZeit - startZeit;
+
+loescheAnzeige();
+zeichneKarten(0, 50, 150);
+
+infoEtikett.setzeInhalt("Karten sotiert in "+ dauer+" ms");
+}
+
+public void Sortieren(){
+//boolean eingefügt;
+int n = kartenAnzahl;
+//do {
+karten.zumAnfang();
+loescheAnzeige();
+for (int i = 1; i <= karten.laenge(); i++) {
+karten.geheZuPosition(i); Karte a = karten.aktuellesElement();
+karten.loescheAktuelles();
+boolean eingefügt = false;
+int j = i-1;
+
+while(j >= 1 && !eingefügt) {
+karten.geheZuPosition(j);
+Karte b = karten.aktuellesElement();
+if(a.wert < b.wert || (a.wert == b.wert && a.farbe < b.farbe)) {
+j--;
+} else {
+eingefügt = true; } }
+karten.geheZuPosition(j+1);
+karten.fuegeDavorEin(a);}
+// }
+}
+
+// n--; // Reduziere die Anzahl der zu vergleichenden Elemente
+// } while (vertauscht);
+// }
+
+  
+  
   public void Sort_Klick() {
         loescheAnzeige();
         startZeit = System.nanoTime();
